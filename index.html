@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Consider This, LLC — The C.L.E.A.R. Selling System™</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ── RESET ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    /* ── GLOBAL ── */
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      color: #0A1A2F;
+      background: #ffffff;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #0A1A2F;
+    }
+    p {
+      line-height: 1.65;
+      font-weight: 300;
+      color: #4A4F57;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* ── NAV ── */
+    .ct-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 1px solid #eee;
+    }
+    .ct-nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 18px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .ct-logo {
+      font-family: 'Playfair Display', serif;
+      font-weight: 800;
+      font-size: 20px;
+      letter-spacing: -0.5px;
+      color: #0A1A2F;
+    }
+    .ct-logo span {
+      color: #4A4F57;
+      font-weight: 700;
+    }
+    .ct-nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #4A4F57;
+    }
+    .ct-nav-links a:hover { color: #0A1A2F; }
+    .ct-nav-cta {
+      padding: 9px 20px;
+      border-radius: 999px;
+      background: #0A1A2F;
+      color: #fff !important;
+      font-weight: 600;
+      font-size: 14px;
+      transition: background 0.2s ease;
+    }
+    .ct-nav-cta:hover { background: #1a3a5c; }
+
+    /* ── HERO ── */
+    .ct-hero-wrapper {
+      border-bottom: 1px solid #eee;
+      background: #fff;
+    }
+    .ct-hero {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 100px 24px 80px;
+    }
+    .ct-hero-eyebrow {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 24px;
+    }
+    .ct-hero h1 {
+      font-size: clamp(40px, 6vw, 60px);
+      line-height: 1.08;
+      letter-spacing: -1.5px;
+      color: #0A1A2F;
+      margin-bottom: 24px;
+    }
+    .ct-hero h1 em {
+      font-style: italic;
+      color: #4A4F57;
+    }
+    .ct-hero-sub {
+      font-size: 1.1rem;
+      color: #4A4F57;
+      font-weight: 300;
+      max-width: 560px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+    .ct-hero-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* ── BUTTONS ── */
+    .ct-btn-primary,
+    .ct-btn-secondary {
+      display: inline-block;
+      padding: 14px 32px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 15px;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      border: none;
+      transition: all 0.25s ease;
+    }
+    .ct-btn-primary {
+      background: #0A1A2F;
+      color: #fff;
+    }
+    .ct-btn-primary:hover {
+      background: #1a3a5c;
+      transform: translateY(-1px);
+    }
+    .ct-btn-secondary {
+      border: 2px solid #0A1A2F;
+      color: #0A1A2F;
+      background: transparent;
+    }
+    .ct-btn-secondary:hover {
+      background: #0A1A2F;
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    /* ── SECTION WRAPPERS ── */
+    .ct-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 32px;
+    }
+    .ct-section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #aaa;
+      margin-bottom: 14px;
+    }
+    .ct-section h2 {
+      font-size: clamp(28px, 4vw, 38px);
+      margin-bottom: 48px;
+    }
+
+    /* ── SERVICES ── */
+    .ct-services-section { border-top: 1px solid #eee; }
+    .ct-services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px;
+    }
+    .ct-service-card {
+      padding: 40px 32px;
+      border: 1px solid #e5e5e5;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      background: #fff;
+    }
+    .ct-service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.07);
+      border-color: #d0d0d0;
+    }
+    .ct-service-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: #f0f0ec;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+    .ct-service-card h3 {
+      font-size: 19px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      font-family: 'Playfair Display', serif;
+    }
+    .ct-service-card p {
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    /* ── CLEAR SYSTEM ── */
+    .ct-clear-bg {
+      background: #0A1A2F;
+      border-top: 1px solid #eee;
+    }
+    .ct-clear-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 32px;
+    }
+    .ct-clear-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 14px;
+    }
+    .ct-clear-inner h2 {
+      font-size: clamp(28px, 4vw, 38px);
+      color: #fff;
+      margin-bottom: 48px;
+    }
+    .ct-clear-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+    }
+    .ct-clear-step {
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      padding: 28px 22px;
+    }
+    .ct-clear-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      font-weight: 800;
+      color: rgba(255,255,255,0.15);
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+    .ct-clear-step h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .ct-clear-step p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    /* ── WHY ── */
+    .ct-why-bg {
+      background: #f8f8f6;
+      border-top: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+    }
+    .ct-why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .ct-why-item {
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      border-radius: 10px;
+      padding: 28px 22px;
+    }
+    .ct-why-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 30px;
+      font-weight: 800;
+      color: #0A1A2F;
+      margin-bottom: 8px;
+    }
+    .ct-why-item p {
+      font-size: 13px;
+      color: #4A4F57;
+      line-height: 1.55;
+      font-weight: 300;
+    }
+
+    /* ── ABOUT ── */
+    .ct-about-section { border-top: 1px solid #eee; }
+    .ct-about-preview {
+      max-width: 660px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .ct-about-preview h2 { margin-bottom: 20px; }
+    .ct-about-preview p { margin-bottom: 32px; font-size: 15px; }
+
+    /* ── CTA ── */
+    .ct-cta-bg {
+      background: #0A1A2F;
+      text-align: center;
+      border-top: 1px solid #eee;
+    }
+    .ct-cta-inner {
+      max-width: 620px;
+      margin: 0 auto;
+      padding: 96px 32px;
+    }
+    .ct-cta-bg h2 {
+      font-size: clamp(28px, 4vw, 42px);
+      color: #fff;
+      margin-bottom: 18px;
+    }
+    .ct-cta-bg p {
+      color: rgba(255,255,255,0.6);
+      font-size: 16px;
+      margin-bottom: 40px;
+    }
+    .ct-btn-light {
+      display: inline-block;
+      padding: 15px 40px;
+      border-radius: 6px;
+      font-weight: 600;
+      background: #fff;
+      color: #0A1A2F;
+      font-size: 15px;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      border: none;
+      transition: all 0.25s ease;
+    }
+    .ct-btn-light:hover {
+      background: #f0f0ec;
+      transform: translateY(-1px);
+    }
+
+    /* ── FOOTER ── */
+    .ct-footer {
+      border-top: 1px solid #eee;
+      padding: 28px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1100px;
+      margin: 0 auto;
+      font-size: 13px;
+      color: #aaa;
+    }
+    .ct-footer-links { display: flex; gap: 20px; }
+    .ct-footer-links a { color: #aaa; }
+    .ct-footer-links a:hover { color: #0A1A2F; }
+
+    /* ── ANIMATIONS ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.7s ease forwards;
+    }
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in:nth-child(1) { animation-delay: 0.05s; }
+    .fade-in:nth-child(2) { animation-delay: 0.15s; }
+    .fade-in:nth-child(3) { animation-delay: 0.25s; }
+    .fade-in:nth-child(4) { animation-delay: 0.35s; }
+    .fade-in:nth-child(5) { animation-delay: 0.45s; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      .ct-nav-links { gap: 16px; }
+      .ct-nav-links a:not(.ct-nav-cta) { display: none; }
+      .ct-hero { padding: 60px 20px 50px; }
+      .ct-section { padding: 56px 20px; }
+      .ct-clear-inner { padding: 56px 20px; }
+      .ct-hero-buttons { flex-direction: column; align-items: center; }
+      .ct-btn-primary, .ct-btn-secondary { width: 100%; text-align: center; }
+      .ct-footer { flex-direction: column; gap: 12px; text-align: center; }
+      .ct-service-card { padding: 28px 22px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="ct-nav">
+    <div class="ct-nav-inner">
+      <div class="ct-logo">Consider This<span>,&nbsp;LLC</span></div>
+      <div class="ct-nav-links">
+        <a href="#services">Services</a>
+        <a href="#system">The System</a>
+        <a href="#about">About</a>
+        <a href="#contact" class="ct-nav-cta">Book a Discovery Meeting</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="ct-hero-wrapper">
+    <div class="ct-hero">
+      <span class="ct-hero-eyebrow">The C.L.E.A.R. Selling System™</span>
+      <h1>Sell Smarter.<br><em>Close More.</em></h1>
+      <p class="ct-hero-sub">Enterprise sales training, consulting, and keynotes built for the modern buyer — where trust, insight, and clarity win deals.</p>
+      <div class="ct-hero-buttons">
+        <a href="#video" class="ct-btn-primary">▶ Click Here to Watch the Video</a>
+        <a href="#system" class="ct-btn-secondary">Learn the System</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section class="ct-services-section" id="services">
+    <div class="ct-section">
+      <div class="ct-section-label">What We Offer</div>
+      <h2>Built for Enterprise Sales Teams</h2>
+      <div class="ct-services-grid">
+        <div class="ct-service-card fade-in">
+          <div class="ct-service-icon">🎯</div>
+          <h3>Sales Training</h3>
+          <p>Live and virtual programs built around the C.L.E.A.R. Selling System™ — designed for enterprise reps navigating complex, multi-stakeholder deals from discovery through close.</p>
+        </div>
+        <div class="ct-service-card fade-in">
+          <div class="ct-service-icon">📖</div>
+          <h3>C.L.E.A.R. Manual &amp; Audio</h3>
+          <p>Physical and digital copies of the C.L.E.A.R. Selling System™ — available as a comprehensive manual and audio edition so your team can learn on their schedule, in their format.</p>
+        </div>
+        <div class="ct-service-card fade-in">
+          <div class="ct-service-icon">🤖</div>
+          <h3>AI Real-Time Sales Companion</h3>
+          <p>Licensed access to an AI-powered coaching companion that delivers in-the-moment guidance during live sales conversations — continuous training that works in the field, not just the classroom.</p>
+        </div>
+        <div class="ct-service-card fade-in">
+          <div class="ct-service-icon">🧭</div>
+          <h3>GTM Consulting</h3>
+          <p>Strategic go-to-market advisory coaching for teams working on large complex deals, launching new products, or onboarding new sellers. Grounded in 20+ years of enterprise GTM experience.</p>
+        </div>
+        <div class="ct-service-card fade-in">
+          <div class="ct-service-icon">🎤</div>
+          <h3>Keynote Speaking</h3>
+          <p>Energizing, story-driven talks on AI-powered selling, identity resolution strategy, and building revenue in the age of the informed buyer.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- C.L.E.A.R. SYSTEM -->
+  <section class="ct-clear-bg" id="system">
+    <div class="ct-clear-inner">
+      <div class="ct-clear-label">The Methodology</div>
+      <h2>The C.L.E.A.R. Selling System™</h2>
+      <div class="ct-clear-grid">
+        <div class="ct-clear-step fade-in">
+          <div class="ct-clear-letter">C</div>
+          <h3>Calibrate</h3>
+          <p>Research and align before the first conversation. Know the buyer's world better than they expect.</p>
+        </div>
+        <div class="ct-clear-step fade-in">
+          <div class="ct-clear-letter">L</div>
+          <h3>Lead with Insight</h3>
+          <p>Open with unconsidered problems, not your pitch. Earn attention by delivering value first.</p>
+        </div>
+        <div class="ct-clear-step fade-in">
+          <div class="ct-clear-letter">E</div>
+          <h3>Earn the Room</h3>
+          <p>Build credibility through relevance, not résumé. Make the buyer feel understood, not sold to.</p>
+        </div>
+        <div class="ct-clear-step fade-in">
+          <div class="ct-clear-letter">A</div>
+          <h3>Align &amp; Advance</h3>
+          <p>Co-create the solution. Align on value and move the deal forward with shared ownership.</p>
+        </div>
+        <div class="ct-clear-step fade-in">
+          <div class="ct-clear-letter">R</div>
+          <h3>Retain &amp; Grow</h3>
+          <p>Close is the beginning. Build the relationship that turns one deal into a portfolio.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE -->
+  <section class="ct-why-bg">
+    <div class="ct-section">
+      <div class="ct-section-label">Why Consider This</div>
+      <h2>20+ Years. Real Results.</h2>
+      <div class="ct-why-grid">
+        <div class="ct-why-item">
+          <div class="ct-why-num">20+</div>
+          <p>Years in enterprise sales across CPG, QSR, retail, and FSI verticals</p>
+        </div>
+        <div class="ct-why-item">
+          <div class="ct-why-num">C.L.E.A.R.</div>
+          <p>A proven selling system built from real deal cycles — not classroom theory</p>
+        </div>
+        <div class="ct-why-item">
+          <div class="ct-why-num">AI-Ready</div>
+          <p>Frameworks updated for the AI-driven buyer journey and modern martech stack</p>
+        </div>
+        <div class="ct-why-item">
+          <div class="ct-why-num">Actionable</div>
+          <p>Every session delivers tools reps can apply in their very next sales call</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="ct-about-section" id="about">
+    <div class="ct-section">
+      <div class="ct-about-preview">
+        <div class="ct-section-label">About</div>
+        <h2>A Sales Leader Who's Been in the Room</h2>
+        <p>With 20+ years in senior enterprise sales leadership, Robert Woodard brings deep expertise in identity resolution, first-party data strategy, and enterprise GTM execution across the most competitive verticals in marketing. Consider This, LLC distills that career into practical frameworks modern sales teams can use today.</p>
+        <a href="#contact" class="ct-btn-primary">Read the Full Story</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="ct-cta-bg" id="contact">
+    <div class="ct-cta-inner">
+      <h2>Ready to Sell with Clarity?</h2>
+      <p>See the C.L.E.A.R. Selling System™ in action and discover how it can transform the way your team sells.</p>
+      <a href="#video" class="ct-btn-light">▶ Click Here to Watch the Video</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="ct-footer">
+      <span>© 2025 Consider This, LLC · All rights reserved</span>
+      <div class="ct-footer-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
