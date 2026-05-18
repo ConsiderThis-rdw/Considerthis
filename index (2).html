@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Consider This, LLC — The C.L.E.A.R. Selling System™</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Cabinet+Grotesk:wght@300;400;500;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #071525;
+      --navy-mid: #0E2540;
+      --navy-light: #1A3A5C;
+      --gold: #C9A84C;
+      --gold-light: #E8C97A;
+      --cream: #F7F4EE;
+      --smoke: #F0EDE6;
+      --text: #1C2B3A;
+      --muted: #5A6A7A;
+      --white: #FFFFFF;
+      --border: rgba(255,255,255,0.08);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Cabinet Grotesk', system-ui, sans-serif; color: var(--text); background: var(--white); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    h1, h2, h3 { font-family: 'Cormorant Garamond', Georgia, serif; color: var(--text); }
+    a { text-decoration: none; color: inherit; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 0 40px; transition: all 0.4s ease; background: rgba(7,21,37,0.96); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 72px; }
+    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 700; color: var(--white); letter-spacing: -0.3px; }
+    .nav-logo span { color: var(--gold); }
+    .nav-links { display: flex; align-items: center; gap: 32px; font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.75); }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta { padding: 10px 22px; border-radius: 4px; background: var(--gold); color: var(--navy) !important; font-weight: 700; font-size: 13px; letter-spacing: 0.3px; transition: all 0.2s ease; }
+    .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+    /* HERO */
+    .hero { min-height: 100vh; background: var(--navy); display: flex; align-items: center; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px); background-size: 60px 60px; animation: gridDrift 20s linear infinite; }
+    .hero::after { content: ''; position: absolute; top: -20%; right: -10%; width: 70%; height: 100%; background: radial-gradient(ellipse at center, rgba(201,168,76,0.08) 0%, transparent 65%); pointer-events: none; }
+    @keyframes gridDrift { 0% { transform: translate(0,0); } 100% { transform: translate(60px, 60px); } }
+    .hero-inner { max-width: 1200px; margin: 0 auto; padding: 120px 40px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; position: relative; z-index: 2; width: 100%; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 28px; }
+    .hero-eyebrow::before { content: ''; display: block; width: 32px; height: 1px; background: var(--gold); }
+    .hero h1 { font-size: clamp(48px, 5.5vw, 78px); line-height: 1.02; letter-spacing: -2px; color: var(--white); margin-bottom: 28px; }
+    .hero h1 em { font-style: italic; color: var(--gold); }
+    .hero-sub { font-size: 17px; color: rgba(255,255,255,0.6); font-weight: 300; line-height: 1.75; max-width: 460px; margin-bottom: 44px; }
+    .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-gold { display: inline-flex; align-items: center; gap: 8px; padding: 15px 32px; background: var(--gold); color: var(--navy); font-weight: 700; font-size: 14px; border-radius: 4px; transition: all 0.25s ease; border: none; cursor: pointer; letter-spacing: 0.2px; }
+    .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,168,76,0.35); color: var(--navy); }
+    .btn-outline { display: inline-flex; align-items: center; gap: 8px; padding: 15px 32px; border: 1px solid rgba(255,255,255,0.25); color: var(--white); font-weight: 500; font-size: 14px; border-radius: 4px; transition: all 0.25s ease; background: transparent; cursor: pointer; }
+    .btn-outline:hover { border-color: rgba(255,255,255,0.6); background: rgba(255,255,255,0.06); color: var(--white); }
+    .hero-visual { position: relative; border-radius: 16px; overflow: hidden; box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06); }
+    .hero-badge { position: absolute; bottom: -20px; left: -20px; background: var(--gold); color: var(--navy); border-radius: 12px; padding: 16px 20px; font-weight: 700; font-size: 13px; box-shadow: 0 12px 32px rgba(0,0,0,0.3); z-index: 10; line-height: 1.4; }
+    .hero-badge .big { font-size: 26px; font-family: 'Cormorant Garamond', serif; display: block; }
+    .hero-stats { display: flex; gap: 40px; margin-top: 56px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.08); }
+    .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 700; color: var(--white); line-height: 1; }
+    .stat-num span { color: var(--gold); }
+    .stat-label { font-size: 12px; color: rgba(255,255,255,0.45); font-weight: 400; margin-top: 4px; letter-spacing: 0.5px; }
+
+    /* LOGO BAR */
+    .logo-bar { background: var(--cream); padding: 28px 40px; border-bottom: 1px solid #E8E3D8; }
+    .logo-bar-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 16px; }
+    .logo-bar-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #999; white-space: nowrap; margin-right: 8px; }
+    .logo-bar-items { display: flex; align-items: center; gap: 40px; overflow: hidden; flex-wrap: wrap; }
+    .logo-bar-item { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 600; color: #aaa; white-space: nowrap; letter-spacing: -0.3px; }
+
+    /* SECTIONS */
+    .section-wrap { max-width: 1200px; margin: 0 auto; padding: 100px 40px; }
+    .section-eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+    .section-eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: var(--gold); }
+
+    /* SERVICES */
+    .services-section { background: var(--white); border-top: 1px solid #ECEAE4; }
+    .services-header { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; margin-bottom: 64px; }
+    .services-header h2 { font-size: clamp(36px, 4vw, 54px); line-height: 1.08; letter-spacing: -1px; }
+    .services-header p { font-size: 16px; color: var(--muted); line-height: 1.7; font-weight: 300; padding-bottom: 8px; }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: #ECEAE4; border: 2px solid #ECEAE4; border-radius: 16px; overflow: hidden; }
+    .service-card { background: var(--white); padding: 44px 36px; transition: all 0.35s ease; cursor: pointer; position: relative; }
+    .service-card:hover { background: var(--navy); z-index: 2; }
+    .service-card:hover h3, .service-card:hover .svc-num { color: var(--white) !important; }
+    .service-card:hover p { color: rgba(255,255,255,0.6) !important; }
+    .service-card:hover .svc-icon-wrap { background: rgba(201,168,76,0.15); }
+    .service-card:hover .svc-arrow { opacity: 1; transform: translateX(0); }
+    .svc-num { font-family: 'Cormorant Garamond', serif; font-size: 13px; font-weight: 600; color: #CCC; margin-bottom: 28px; letter-spacing: 1px; }
+    .svc-icon-wrap { width: 48px; height: 48px; border-radius: 10px; background: var(--smoke); display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 20px; transition: background 0.3s ease; }
+    .service-card h3 { font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 12px; letter-spacing: -0.3px; line-height: 1.2; transition: color 0.3s ease; }
+    .service-card p { font-size: 14px; color: var(--muted); line-height: 1.65; font-weight: 300; transition: color 0.3s ease; }
+    .svc-arrow { position: absolute; bottom: 28px; right: 28px; color: var(--gold); font-size: 20px; opacity: 0; transform: translateX(-6px); transition: all 0.3s ease; }
+    .service-card.wide { grid-column: span 2; }
+
+    /* AI SECTION */
+    .ai-section { background: var(--navy); overflow: hidden; position: relative; }
+    .ai-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse at 80% 50%, rgba(201,168,76,0.06) 0%, transparent 60%); }
+    .ai-inner { max-width: 1200px; margin: 0 auto; padding: 100px 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; position: relative; z-index: 2; }
+    .ai-left h2 { font-size: clamp(34px, 4vw, 52px); color: var(--white); line-height: 1.08; letter-spacing: -1px; margin-bottom: 24px; }
+    .ai-left h2 em { font-style: italic; color: var(--gold); }
+    .ai-left p { font-size: 16px; color: rgba(255,255,255,0.6); line-height: 1.75; font-weight: 300; margin-bottom: 36px; }
+    .ai-features { display: flex; flex-direction: column; gap: 16px; margin-bottom: 40px; }
+    .ai-feature { display: flex; align-items: flex-start; gap: 14px; font-size: 14px; color: rgba(255,255,255,0.75); font-weight: 400; }
+    .ai-feature-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); margin-top: 6px; flex-shrink: 0; }
+
+    /* AI DEMO */
+    .ai-demo { background: #0D1F35; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; overflow: hidden; box-shadow: 0 40px 80px rgba(0,0,0,0.5); }
+    .ai-demo-header { background: #0A1828; padding: 14px 20px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .ai-demo-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .ai-demo-title { font-size: 12px; color: rgba(255,255,255,0.4); margin-left: 8px; font-weight: 500; letter-spacing: 0.5px; }
+    .ai-demo-badge { margin-left: auto; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #4CAF6E; background: rgba(76,175,110,0.12); padding: 3px 8px; border-radius: 20px; }
+    .ai-demo-body { padding: 24px 20px; }
+    .ai-context-bar { background: rgba(201,168,76,0.08); border: 1px solid rgba(201,168,76,0.2); border-radius: 8px; padding: 12px 16px; font-size: 12px; color: var(--gold); margin-bottom: 20px; font-weight: 500; }
+    .ai-context-bar span { color: rgba(255,255,255,0.5); font-weight: 300; }
+    .ai-messages { display: flex; flex-direction: column; gap: 14px; max-height: 260px; overflow-y: auto; }
+    .ai-msg { display: flex; gap: 10px; align-items: flex-start; }
+    .ai-msg.user { flex-direction: row-reverse; }
+    .ai-avatar { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; font-weight: 700; }
+    .ai-avatar.bot { background: rgba(201,168,76,0.15); color: var(--gold); font-size: 14px; }
+    .ai-avatar.user-av { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.6); font-size: 10px; }
+    .ai-bubble { max-width: 75%; padding: 10px 14px; border-radius: 10px; font-size: 12.5px; line-height: 1.55; font-weight: 300; }
+    .ai-bubble.bot { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.82); border: 1px solid rgba(255,255,255,0.06); border-top-left-radius: 2px; }
+    .ai-bubble.user-msg { background: rgba(201,168,76,0.12); color: rgba(255,255,255,0.75); border: 1px solid rgba(201,168,76,0.2); border-top-right-radius: 2px; }
+    .ai-typing { display: flex; gap: 10px; align-items: center; margin-top: 4px; }
+    .typing-dots { display: flex; gap: 4px; }
+    .typing-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); animation: typingBounce 1.2s infinite; }
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typingBounce { 0%, 60%, 100% { transform: translateY(0); opacity: 0.4; } 30% { transform: translateY(-4px); opacity: 1; } }
+    .ai-input-bar { margin-top: 18px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 10px 14px; display: flex; align-items: center; gap: 10px; }
+    .ai-input-text { flex: 1; font-size: 12px; color: rgba(255,255,255,0.3); font-family: 'Cabinet Grotesk', sans-serif; font-weight: 300; }
+    .ai-send { width: 28px; height: 28px; border-radius: 6px; background: var(--gold); display: flex; align-items: center; justify-content: center; font-size: 12px; cursor: pointer; transition: all 0.2s ease; color: var(--navy); font-weight: 700; }
+    .ai-send:hover { background: var(--gold-light); }
+    .ai-suggestions { padding: 14px 20px; border-top: 1px solid rgba(255,255,255,0.05); display: flex; gap: 8px; flex-wrap: wrap; }
+    .ai-chip { font-size: 11px; font-weight: 500; padding: 5px 12px; border-radius: 20px; border: 1px solid rgba(201,168,76,0.25); color: rgba(255,255,255,0.55); cursor: pointer; transition: all 0.2s ease; white-space: nowrap; }
+    .ai-chip:hover, .ai-chip.active { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.1); }
+
+    /* MEETING SECTION */
+    .meeting-section { background: var(--cream); border-top: 1px solid #E8E3D8; border-bottom: 1px solid #E8E3D8; overflow: hidden; }
+    .meeting-inner { max-width: 1200px; margin: 0 auto; padding: 100px 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .meeting-scene { border-radius: 16px; overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,0.12); position: relative; }
+    .meeting-overlay-card { position: absolute; top: 24px; right: -20px; background: var(--white); border-radius: 12px; padding: 16px 20px; box-shadow: 0 12px 32px rgba(0,0,0,0.12); min-width: 180px; }
+    .meeting-overlay-card .label { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #999; margin-bottom: 6px; }
+    .meeting-overlay-card .value { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 700; color: var(--navy); }
+    .meeting-overlay-card .sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .meeting-overlay-card2 { position: absolute; bottom: -16px; left: 20px; background: var(--navy); border-radius: 10px; padding: 14px 18px; box-shadow: 0 12px 32px rgba(0,0,0,0.25); display: flex; align-items: center; gap: 12px; }
+    .meeting-overlay-card2 .icon { font-size: 20px; }
+    .meeting-overlay-card2 .text { font-size: 12px; color: rgba(255,255,255,0.8); font-weight: 500; }
+    .meeting-overlay-card2 .text strong { display: block; color: var(--gold); font-size: 13px; }
+    .meeting-right h2 { font-size: clamp(34px, 4vw, 50px); line-height: 1.08; letter-spacing: -1px; margin-bottom: 24px; }
+    .meeting-right p { font-size: 16px; color: var(--muted); line-height: 1.75; font-weight: 300; margin-bottom: 20px; }
+
+    /* CLEAR */
+    .clear-section { background: var(--white); border-top: 1px solid #ECEAE4; }
+    .clear-inner { max-width: 1200px; margin: 0 auto; padding: 100px 40px; }
+    .clear-header { text-align: center; margin-bottom: 72px; }
+    .clear-header h2 { font-size: clamp(38px, 5vw, 62px); letter-spacing: -1.5px; line-height: 1.05; margin-bottom: 16px; }
+    .clear-header p { font-size: 16px; color: var(--muted); font-weight: 300; max-width: 520px; margin: 0 auto; line-height: 1.7; }
+    .clear-tabs { display: flex; gap: 2px; background: var(--smoke); border-radius: 12px; padding: 6px; margin-bottom: 48px; width: fit-content; margin-left: auto; margin-right: auto; flex-wrap: wrap; }
+    .clear-tab { padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 600; color: var(--muted); cursor: pointer; transition: all 0.25s ease; border: none; background: transparent; font-family: 'Cabinet Grotesk', sans-serif; }
+    .clear-tab:hover { color: var(--text); }
+    .clear-tab.active { background: var(--navy); color: var(--white); box-shadow: 0 4px 12px rgba(7,21,37,0.2); }
+    .clear-tab .tab-letter { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 700; margin-right: 6px; }
+    .clear-panel { display: none; }
+    .clear-panel.active { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .clear-panel-letter { font-family: 'Cormorant Garamond', serif; font-size: 120px; font-weight: 700; color: var(--smoke); line-height: 0.85; margin-bottom: 24px; letter-spacing: -4px; }
+    .clear-panel-left h3 { font-size: 36px; letter-spacing: -0.5px; margin-bottom: 16px; line-height: 1.1; }
+    .clear-panel-left p { font-size: 16px; color: var(--muted); line-height: 1.75; font-weight: 300; margin-bottom: 28px; }
+    .clear-insight { background: var(--smoke); border-left: 3px solid var(--gold); padding: 16px 20px; border-radius: 0 8px 8px 0; font-size: 14px; color: var(--text); font-style: italic; line-height: 1.6; }
+    .clear-panel-right { background: var(--navy); border-radius: 16px; padding: 48px 40px; position: relative; overflow: hidden; }
+    .clear-panel-right::before { content: ''; position: absolute; top: -40px; right: -40px; width: 200px; height: 200px; background: radial-gradient(circle, rgba(201,168,76,0.1) 0%, transparent 70%); }
+    .clear-steps-list { position: relative; z-index: 1; }
+    .clear-step-item { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .clear-step-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .clear-step-num { font-family: 'Cormorant Garamond', serif; font-size: 14px; color: var(--gold); font-weight: 700; padding-top: 2px; flex-shrink: 0; width: 24px; }
+    .clear-step-text h4 { font-family: 'Cabinet Grotesk', sans-serif; font-size: 14px; font-weight: 600; color: var(--white); margin-bottom: 4px; }
+    .clear-step-text p { font-size: 13px; color: rgba(255,255,255,0.45); font-weight: 300; line-height: 1.5; }
+
+    /* STATS */
+    .stats-section { background: var(--navy); padding: 80px 40px; }
+    .stats-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; background: rgba(255,255,255,0.05); border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.06); }
+    .stat-block { padding: 52px 40px; background: var(--navy); text-align: center; transition: background 0.3s ease; }
+    .stat-block:hover { background: var(--navy-mid); }
+    .stat-big { font-family: 'Cormorant Garamond', serif; font-size: 60px; font-weight: 700; color: var(--white); line-height: 1; margin-bottom: 8px; }
+    .stat-big span { color: var(--gold); }
+    .stat-desc { font-size: 13px; color: rgba(255,255,255,0.4); font-weight: 400; line-height: 1.5; }
+
+    /* ABOUT */
+    .about-section { background: var(--cream); border-top: 1px solid #E8E3D8; }
+    .about-inner { max-width: 1200px; margin: 0 auto; padding: 100px 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .about-left h2 { font-size: clamp(34px, 4vw, 52px); line-height: 1.08; letter-spacing: -1px; margin-bottom: 24px; }
+    .about-left p { font-size: 16px; color: var(--muted); line-height: 1.75; font-weight: 300; margin-bottom: 20px; }
+    .about-credentials { display: flex; flex-direction: column; gap: 12px; margin: 32px 0; }
+    .about-credential { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--text); font-weight: 500; }
+    .about-credential::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+    .about-portrait { border-radius: 16px; overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,0.12); }
+    .about-quote { position: absolute; bottom: -24px; right: -24px; background: var(--navy); color: var(--white); border-radius: 12px; padding: 24px 28px; max-width: 260px; box-shadow: 0 16px 40px rgba(0,0,0,0.25); }
+    .about-quote p { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-style: italic; color: var(--white) !important; line-height: 1.4; margin-bottom: 10px !important; }
+    .about-quote cite { font-size: 11px; font-style: normal; color: var(--gold); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+    .about-right { position: relative; }
+
+    /* CTA */
+    .cta-section { background: var(--navy); position: relative; overflow: hidden; text-align: center; }
+    .cta-section::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px); background-size: 60px 60px; }
+    .cta-inner { max-width: 760px; margin: 0 auto; padding: 120px 40px; position: relative; z-index: 2; }
+    .cta-section h2 { font-size: clamp(42px, 6vw, 72px); color: var(--white); line-height: 1.02; letter-spacing: -2px; margin-bottom: 24px; }
+    .cta-section h2 em { color: var(--gold); font-style: italic; }
+    .cta-section p { font-size: 17px; color: rgba(255,255,255,0.55); font-weight: 300; line-height: 1.7; margin-bottom: 48px; }
+    .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    /* FOOTER */
+    footer { background: #040E19; padding: 40px; border-top: 1px solid rgba(255,255,255,0.05); }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 700; color: rgba(255,255,255,0.4); }
+    .footer-logo span { color: var(--gold); }
+    .footer-copy { font-size: 12px; color: rgba(255,255,255,0.2); }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { font-size: 12px; color: rgba(255,255,255,0.3); transition: color 0.2s ease; }
+    .footer-links a:hover { color: rgba(255,255,255,0.7); }
+
+    /* ANIMATIONS */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
+
+    /* MOBILE */
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 48px; padding: 100px 24px 60px; }
+      .hero-right { display: none; }
+      .services-header { grid-template-columns: 1fr; gap: 24px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .service-card.wide { grid-column: span 1; }
+      .ai-inner { grid-template-columns: 1fr; gap: 48px; padding: 72px 24px; }
+      .meeting-inner { grid-template-columns: 1fr; gap: 48px; padding: 72px 24px; }
+      .clear-panel.active { grid-template-columns: 1fr; gap: 40px; }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .about-inner { grid-template-columns: 1fr; gap: 48px; padding: 72px 24px; }
+      .section-wrap { padding: 72px 24px; }
+      .footer-inner { flex-direction: column; gap: 20px; text-align: center; }
+      .nav-links a:not(.nav-cta) { display: none; }
+      .hero-stats { gap: 24px; }
+      .clear-inner { padding: 72px 24px; }
+      .about-quote { position: relative; bottom: auto; right: auto; margin-top: 24px; max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-logo">Consider This<span>,&nbsp;LLC</span></div>
+      <div class="nav-links">
+        <a href="#services">Services</a>
+        <a href="#ai-companion">AI Companion</a>
+        <a href="#system">The System</a>
+        <a href="#about">About</a>
+        <a href="#contact" class="nav-cta">Book a Discovery Meeting</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-eyebrow">The C.L.E.A.R. Selling System™</div>
+        <h1>Win the Room.<br>Close the Deal.<br><em>Every Time.</em></h1>
+        <p class="hero-sub">Enterprise sales training, AI-powered coaching, and go-to-market consulting for teams that compete at the highest level.</p>
+        <div class="hero-buttons">
+          <a href="#video" class="btn-gold">▶ Watch the Video</a>
+          <a href="#system" class="btn-outline">Explore the System</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-num"><span class="count-up" data-target="20">0</span><span>+</span></div>
+            <div class="stat-label">Years Enterprise Sales</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num"><span class="count-up" data-target="5">0</span></div>
+            <div class="stat-label">Proven Frameworks</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num"><span class="count-up" data-target="100">0</span><span>%</span></div>
+            <div class="stat-label">Field-Tested Methods</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="hero-visual">
+          <svg viewBox="0 0 540 400" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;">
+            <defs>
+              <pattern id="heroGrid" width="30" height="30" patternUnits="userSpaceOnUse">
+                <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+              </pattern>
+              <linearGradient id="tableGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#1E3A5A"/>
+                <stop offset="100%" style="stop-color:#162E4A"/>
+              </linearGradient>
+              <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#C9A84C"/>
+                <stop offset="100%" style="stop-color:#E8C97A"/>
+              </linearGradient>
+              <filter id="glow">
+                <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+            </defs>
+            <rect width="540" height="400" fill="#0D1F35"/>
+            <rect width="540" height="400" fill="url(#heroGrid)"/>
+            <rect x="0" y="0" width="540" height="240" fill="#0B1D30" opacity="0.6"/>
+            <!-- Screen on wall -->
+            <rect x="140" y="20" width="260" height="160" rx="8" fill="#071525" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+            <rect x="155" y="32" width="230" height="136" rx="4" fill="#040E19"/>
+            <!-- Chart bars -->
+            <rect x="175" y="110" width="20" height="44" rx="2" fill="rgba(201,168,76,0.3)"/>
+            <rect x="205" y="90" width="20" height="64" rx="2" fill="rgba(201,168,76,0.5)"/>
+            <rect x="235" y="70" width="20" height="84" rx="2" fill="rgba(201,168,76,0.7)"/>
+            <rect x="265" y="50" width="20" height="104" rx="2" fill="url(#goldGrad)" filter="url(#glow)"/>
+            <rect x="295" y="65" width="20" height="89" rx="2" fill="rgba(201,168,76,0.6)"/>
+            <rect x="325" y="85" width="20" height="69" rx="2" fill="rgba(201,168,76,0.4)"/>
+            <text x="270" y="46" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-size="8" font-family="system-ui">Q4 Pipeline Performance</text>
+            <polyline points="185,110 215,90 245,70 275,50 305,65 335,85" fill="none" stroke="#C9A84C" stroke-width="1.5" opacity="0.6"/>
+            <!-- Table -->
+            <ellipse cx="270" cy="305" rx="200" ry="55" fill="#1A3050"/>
+            <!-- Person 1 -->
+            <g transform="translate(110, 195)">
+              <rect x="-22" y="40" width="44" height="55" rx="6" fill="#1E3A5A"/>
+              <rect x="-4" y="40" width="8" height="35" rx="2" fill="rgba(201,168,76,0.3)"/>
+              <circle cx="0" cy="28" r="22" fill="#C8956C"/>
+              <ellipse cx="0" cy="10" rx="22" ry="12" fill="#3D2A1A"/>
+              <circle cx="-7" cy="28" r="3" fill="#1C2B3A"/>
+              <circle cx="7" cy="28" r="3" fill="#1C2B3A"/>
+              <path d="M -6 36 Q 0 41 6 36" fill="none" stroke="#8B5E3C" stroke-width="1.5"/>
+              <rect x="-20" y="90" width="40" height="26" rx="3" fill="#0D1F35" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+              <rect x="-16" y="93" width="32" height="18" rx="2" fill="#071525"/>
+              <rect x="-8" y="98" width="16" height="2" rx="1" fill="rgba(255,255,255,0.15)"/>
+              <rect x="-8" y="103" width="10" height="2" rx="1" fill="rgba(255,255,255,0.1)"/>
+            </g>
+            <!-- Person 2 -->
+            <g transform="translate(430, 195)">
+              <rect x="-22" y="40" width="44" height="55" rx="6" fill="#2A4060"/>
+              <circle cx="0" cy="28" r="22" fill="#D4A574"/>
+              <ellipse cx="0" cy="10" rx="22" ry="14" fill="#1A1A2E"/>
+              <circle cx="-7" cy="28" r="3" fill="#1C2B3A"/>
+              <circle cx="7" cy="28" r="3" fill="#1C2B3A"/>
+              <path d="M -5 35 Q 0 39 5 35" fill="none" stroke="#8B6E4C" stroke-width="1.5"/>
+              <rect x="-18" y="90" width="36" height="28" rx="3" fill="#F7F4EE"/>
+              <line x1="-10" y1="97" x2="10" y2="97" stroke="#DDD" stroke-width="1"/>
+              <line x1="-10" y1="102" x2="10" y2="102" stroke="#DDD" stroke-width="1"/>
+              <line x1="-10" y1="107" x2="5" y2="107" stroke="#DDD" stroke-width="1"/>
+            </g>
+            <!-- Person 3 -->
+            <g transform="translate(320, 210)">
+              <rect x="-18" y="36" width="36" height="45" rx="5" fill="#243550"/>
+              <circle cx="0" cy="24" r="18" fill="#B8836A"/>
+              <ellipse cx="0" cy="9" rx="18" ry="10" fill="#4A3020"/>
+              <circle cx="-6" cy="24" r="2.5" fill="#1C2B3A"/>
+              <circle cx="6" cy="24" r="2.5" fill="#1C2B3A"/>
+            </g>
+            <!-- AI insight bubble -->
+            <g transform="translate(195, 85)">
+              <rect x="0" y="0" width="130" height="44" rx="8" fill="rgba(201,168,76,0.15)" stroke="rgba(201,168,76,0.4)" stroke-width="1"/>
+              <text x="65" y="16" text-anchor="middle" fill="#C9A84C" font-size="8" font-family="system-ui" font-weight="700">AI COMPANION INSIGHT</text>
+              <text x="65" y="30" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="8" font-family="system-ui">"Ask about their Q1 budget cycle"</text>
+              <polygon points="20,44 30,44 25,52" fill="rgba(201,168,76,0.4)"/>
+            </g>
+          </svg>
+        </div>
+        <div class="hero-badge">
+          <span class="big">C.L.E.A.R.™</span>
+          Proven Selling System
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOGO BAR -->
+  <div class="logo-bar">
+    <div class="logo-bar-inner">
+      <div class="logo-bar-label">Trusted by leaders from</div>
+      <div class="logo-bar-items">
+        <div class="logo-bar-item">Fortune 500 CPG</div>
+        <div class="logo-bar-item">·</div>
+        <div class="logo-bar-item">Enterprise QSR</div>
+        <div class="logo-bar-item">·</div>
+        <div class="logo-bar-item">Fintech</div>
+        <div class="logo-bar-item">·</div>
+        <div class="logo-bar-item">Financial Services</div>
+        <div class="logo-bar-item">·</div>
+        <div class="logo-bar-item">Retail Media</div>
+        <div class="logo-bar-item">·</div>
+        <div class="logo-bar-item">AdTech</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section class="services-section" id="services">
+    <div class="section-wrap">
+      <div class="services-header">
+        <div class="reveal">
+          <div class="section-eyebrow">What We Offer</div>
+          <h2>Everything Your Team Needs to Win</h2>
+        </div>
+        <p class="reveal reveal-delay-1">From live training and published methodology to AI-powered real-time coaching — we close the gap between what your reps know and what they do in the room.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="svc-num">01</div>
+          <div class="svc-icon-wrap">🎯</div>
+          <h3>Sales Training</h3>
+          <p>Live and virtual programs built around the C.L.E.A.R. Selling System™ — for enterprise reps navigating complex, multi-stakeholder deals from discovery through close.</p>
+          <div class="svc-arrow">→</div>
+        </div>
+        <div class="service-card reveal reveal-delay-1">
+          <div class="svc-num">02</div>
+          <div class="svc-icon-wrap">📖</div>
+          <h3>C.L.E.A.R. Manual &amp; Audio</h3>
+          <p>Physical and digital copies of the Selling System™ — as a comprehensive manual and audio edition so your team learns on their schedule, in their format.</p>
+          <div class="svc-arrow">→</div>
+        </div>
+        <div class="service-card reveal reveal-delay-2">
+          <div class="svc-num">03</div>
+          <div class="svc-icon-wrap">🤖</div>
+          <h3>AI Real-Time Sales Companion</h3>
+          <p>Licensed access to an AI coaching companion that delivers in-the-moment guidance during live conversations — training that works in the field, not just the classroom.</p>
+          <div class="svc-arrow">→</div>
+        </div>
+        <div class="service-card wide reveal reveal-delay-3">
+          <div class="svc-num">04</div>
+          <div class="svc-icon-wrap">🧭</div>
+          <h3>GTM Consulting</h3>
+          <p>Strategic go-to-market advisory coaching for teams working large complex deals, launching new products, or onboarding new sellers. Grounded in 20+ years of enterprise experience across the most competitive verticals in business.</p>
+          <div class="svc-arrow">→</div>
+        </div>
+        <div class="service-card reveal reveal-delay-4">
+          <div class="svc-num">05</div>
+          <div class="svc-icon-wrap">🎤</div>
+          <h3>Keynote Speaking</h3>
+          <p>Energizing, story-driven talks on AI-powered selling, identity data strategy, and building revenue in the age of the informed buyer.</p>
+          <div class="svc-arrow">→</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI COMPANION -->
+  <section class="ai-section" id="ai-companion">
+    <div class="ai-inner">
+      <div class="ai-left">
+        <div class="section-eyebrow reveal">AI Sales Companion</div>
+        <h2 class="reveal reveal-delay-1">Your Unfair Advantage<br><em>In Every Meeting</em></h2>
+        <p class="reveal reveal-delay-2">The AI Real-Time Sales Companion listens, analyzes, and coaches your reps as deals unfold — surfacing the right insight at exactly the right moment.</p>
+        <div class="ai-features reveal reveal-delay-3">
+          <div class="ai-feature"><div class="ai-feature-dot"></div>Real-time objection handling guidance</div>
+          <div class="ai-feature"><div class="ai-feature-dot"></div>Live discovery question prompts</div>
+          <div class="ai-feature"><div class="ai-feature-dot"></div>Buyer sentiment analysis</div>
+          <div class="ai-feature"><div class="ai-feature-dot"></div>Post-call coaching summaries</div>
+          <div class="ai-feature"><div class="ai-feature-dot"></div>Grounded in the C.L.E.A.R. framework</div>
+        </div>
+        <a href="#contact" class="btn-gold reveal reveal-delay-4">Get Licensed Access</a>
+      </div>
+
+      <div class="ai-demo reveal reveal-delay-2">
+        <div class="ai-demo-header">
+          <div class="ai-demo-dot" style="background:#FF5F57"></div>
+          <div class="ai-demo-dot" style="background:#FEBC2E"></div>
+          <div class="ai-demo-dot" style="background:#28C840"></div>
+          <div class="ai-demo-title">C.L.E.A.R. AI Sales Companion™</div>
+          <div class="ai-demo-badge">● LIVE</div>
+        </div>
+        <div class="ai-demo-body">
+          <div class="ai-context-bar">📍 <strong>Active Meeting:</strong> <span>Enterprise Discovery Call · VP Sales · Stage: Calibrate</span></div>
+          <div class="ai-messages" id="chat-messages">
+            <div class="ai-msg">
+              <div class="ai-avatar bot">✦</div>
+              <div class="ai-bubble bot">I've analyzed the prospect's LinkedIn and recent earnings call. They missed Q3 revenue targets by 12%. Lead with their pipeline visibility challenge — don't pitch yet.</div>
+            </div>
+            <div class="ai-msg user">
+              <div class="ai-avatar user-av">REP</div>
+              <div class="ai-bubble user-msg">They just said they already have a training program in place.</div>
+            </div>
+            <div class="ai-msg">
+              <div class="ai-avatar bot">✦</div>
+              <div class="ai-bubble bot">Classic deflection. Ask: <em>"How confident are your reps in navigating multi-stakeholder deals without a manager in the room?"</em> — this surfaces the real gap.</div>
+            </div>
+          </div>
+          <div class="ai-typing" id="typing-indicator" style="display:none;">
+            <div class="ai-avatar bot">✦</div>
+            <div class="typing-dots"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>
+          </div>
+          <div class="ai-input-bar">
+            <div class="ai-input-text">Ask the AI Companion anything about this deal...</div>
+            <div class="ai-send">→</div>
+          </div>
+        </div>
+        <div class="ai-suggestions">
+          <div class="ai-chip active" onclick="handleChip(this, 'objection')">Handle objection</div>
+          <div class="ai-chip" onclick="handleChip(this, 'question')">Next best question</div>
+          <div class="ai-chip" onclick="handleChip(this, 'close')">How to advance</div>
+          <div class="ai-chip" onclick="handleChip(this, 'insight')">Buyer insight</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEETING SECTION -->
+  <section class="meeting-section">
+    <div class="meeting-inner">
+      <div class="meeting-visual reveal" style="position:relative;">
+        <div class="meeting-scene">
+          <svg viewBox="0 0 480 340" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;">
+            <defs>
+              <linearGradient id="meetBg" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#1A3050"/>
+                <stop offset="100%" style="stop-color:#0D1F35"/>
+              </linearGradient>
+            </defs>
+            <rect width="480" height="340" fill="url(#meetBg)"/>
+            <!-- Window -->
+            <rect x="280" y="0" width="200" height="220" fill="rgba(201,168,76,0.08)"/>
+            <!-- City -->
+            <rect x="290" y="120" width="20" height="100" fill="rgba(7,21,37,0.7)"/>
+            <rect x="315" y="80" width="30" height="140" fill="rgba(7,21,37,0.8)"/>
+            <rect x="350" y="100" width="18" height="120" fill="rgba(7,21,37,0.7)"/>
+            <rect x="373" y="60" width="40" height="160" fill="rgba(7,21,37,0.9)"/>
+            <rect x="418" y="90" width="25" height="130" fill="rgba(7,21,37,0.7)"/>
+            <rect x="319" y="90" width="5" height="5" fill="rgba(201,168,76,0.6)"/>
+            <rect x="330" y="90" width="5" height="5" fill="rgba(201,168,76,0.4)"/>
+            <rect x="377" y="75" width="5" height="5" fill="rgba(201,168,76,0.7)"/>
+            <rect x="387" y="75" width="5" height="5" fill="rgba(201,168,76,0.5)"/>
+            <circle cx="460" cy="30" r="28" fill="rgba(201,168,76,0.1)"/>
+            <!-- Floor -->
+            <rect x="0" y="220" width="480" height="120" fill="#0A1828"/>
+            <!-- Table -->
+            <ellipse cx="200" cy="275" rx="160" ry="45" fill="#1E3A5A"/>
+            <!-- Person left -->
+            <g transform="translate(90, 165)">
+              <rect x="-24" y="42" width="48" height="60" rx="7" fill="#1A3A5C"/>
+              <rect x="-3" y="42" width="6" height="28" rx="1" fill="rgba(201,168,76,0.4)"/>
+              <circle cx="0" cy="28" r="24" fill="#C49A74"/>
+              <ellipse cx="0" cy="10" rx="23" ry="13" fill="#2A1A0A"/>
+              <circle cx="-8" cy="28" r="3" fill="#1C2B3A"/>
+              <circle cx="8" cy="28" r="3" fill="#1C2B3A"/>
+              <path d="M -7 37 Q 0 43 7 37" fill="none" stroke="#8B5E3C" stroke-width="1.8"/>
+              <rect x="14" y="52" width="8" height="28" rx="4" fill="#C49A74" transform="rotate(-20,18,66)"/>
+            </g>
+            <!-- Person center -->
+            <g transform="translate(210, 170)">
+              <rect x="-20" y="38" width="40" height="55" rx="6" fill="#243A5A"/>
+              <circle cx="0" cy="25" r="20" fill="#D4946A"/>
+              <ellipse cx="0" cy="10" rx="20" ry="11" fill="#1A0A0A"/>
+              <circle cx="-6" cy="25" r="2.5" fill="#1C2B3A"/>
+              <circle cx="6" cy="25" r="2.5" fill="#1C2B3A"/>
+              <path d="M -5 33 Q 0 37 5 33" fill="none" stroke="#8B6040" stroke-width="1.5"/>
+            </g>
+            <!-- Person right -->
+            <g transform="translate(330, 160)">
+              <rect x="-22" y="40" width="44" height="58" rx="6" fill="#2A3A50"/>
+              <circle cx="0" cy="27" r="22" fill="#B87A5A"/>
+              <ellipse cx="0" cy="10" rx="22" ry="12" fill="#3A2A1A"/>
+              <circle cx="-7" cy="27" r="3" fill="#1C2B3A"/>
+              <circle cx="7" cy="27" r="3" fill="#1C2B3A"/>
+              <path d="M -6 35 Q 0 40 6 35" fill="none" stroke="#8B5E3C" stroke-width="1.5"/>
+              <rect x="-15" y="94" width="30" height="24" rx="3" fill="rgba(247,244,238,0.9)"/>
+              <line x1="-9" y1="100" x2="9" y2="100" stroke="#DDD" stroke-width="0.8"/>
+              <line x1="-9" y1="105" x2="9" y2="105" stroke="#DDD" stroke-width="0.8"/>
+            </g>
+            <!-- Laptop -->
+            <g transform="translate(120, 215)">
+              <rect x="0" y="0" width="90" height="60" rx="4" fill="#0A1525" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+              <rect x="4" y="4" width="82" height="48" rx="2" fill="#071020"/>
+              <text x="41" y="17" text-anchor="middle" fill="rgba(201,168,76,0.8)" font-size="7" font-family="system-ui" font-weight="700">C.L.E.A.R. SYSTEM</text>
+              <rect x="8" y="40" width="50" height="8" rx="2" fill="rgba(201,168,76,0.15)" stroke="rgba(201,168,76,0.3)" stroke-width="0.5"/>
+              <text x="33" y="46" text-anchor="middle" fill="rgba(201,168,76,0.8)" font-size="6" font-family="system-ui">Stage: Earn the Room</text>
+            </g>
+          </svg>
+        </div>
+        <div class="meeting-overlay-card">
+          <div class="label">Deal Stage</div>
+          <div class="value">Earn the Room</div>
+          <div class="sub">C.L.E.A.R. Step 3 of 5</div>
+        </div>
+        <div class="meeting-overlay-card2">
+          <div class="icon">🎯</div>
+          <div class="text"><strong>AI Insight Active</strong>Buyer engagement: High</div>
+        </div>
+      </div>
+
+      <div class="meeting-right">
+        <div class="section-eyebrow reveal">Training in Action</div>
+        <h2 class="reveal reveal-delay-1">Built for the Moments That Matter Most</h2>
+        <p class="reveal reveal-delay-2">Most training happens in a conference room, weeks before the deal. The C.L.E.A.R. Selling System™ goes further — equipping your reps with frameworks, real-time AI support, and instincts that activate when it counts most.</p>
+        <p class="reveal reveal-delay-3">Whether it's a cold discovery call, a competitive showdown, or a high-stakes executive presentation — your team will know exactly what to say and when to say it.</p>
+        <a href="#contact" class="btn-gold reveal reveal-delay-4" style="margin-top:8px; display:inline-flex;">Book a Discovery Meeting</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- C.L.E.A.R. INTERACTIVE -->
+  <section class="clear-section" id="system">
+    <div class="clear-inner">
+      <div class="clear-header">
+        <div class="section-eyebrow" style="justify-content:center;">The Methodology</div>
+        <h2>The C.L.E.A.R.<br>Selling System™</h2>
+        <p>Five battle-tested stages that turn average reps into elite closers. Click each stage to explore.</p>
+      </div>
+      <div class="clear-tabs">
+        <button class="clear-tab active" onclick="showPanel('c', this)"><span class="tab-letter">C</span> Calibrate</button>
+        <button class="clear-tab" onclick="showPanel('l', this)"><span class="tab-letter">L</span> Lead</button>
+        <button class="clear-tab" onclick="showPanel('e', this)"><span class="tab-letter">E</span> Earn</button>
+        <button class="clear-tab" onclick="showPanel('a', this)"><span class="tab-letter">A</span> Align</button>
+        <button class="clear-tab" onclick="showPanel('r', this)"><span class="tab-letter">R</span> Retain</button>
+      </div>
+
+      <div id="panel-c" class="clear-panel active">
+        <div class="clear-panel-left">
+          <div class="clear-panel-letter">C</div>
+          <h3>Calibrate</h3>
+          <p>The deal is won or lost before the first meeting. Calibration means researching your buyer's world so deeply that you enter the room already knowing their unconsidered problems — not just their stated needs.</p>
+          <div class="clear-insight">"Know the buyer's world better than they expect you to. That's when trust begins before you've said a word."</div>
+        </div>
+        <div class="clear-panel-right">
+          <div class="clear-steps-list">
+            <div class="clear-step-item"><div class="clear-step-num">01</div><div class="clear-step-text"><h4>Research the business, not just the person</h4><p>Earnings calls, press releases, LinkedIn activity, competitor positioning</p></div></div>
+            <div class="clear-step-item"><div class="clear-step-num">02</div><div class="clear-step-text"><h4>Map the stakeholder landscape</h4><p>Who influences the decision, who signs the check, who blocks the deal</p></div></div>
+            <div class="clear-step-item"><div class="clear-step-num">03</div><div class="clear-step-text"><h4>Identify the unconsidered problem</h4><p>The challenge they haven't named yet — but will recognize immediately</p></div></div>
+            <div class="clear-step-item"><div class="clear-step-num">04</div><div class="clear-step-text"><h4>Set your entry hypothesis</h4><p>One clear point of view on where their biggest gap lives</p></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="panel-l" class="clear-panel">
+        <div class="clear-panel-left">
+          <div class="clear-panel-letter">L</div>
+          <h3>Lead with Insight</h3>
+          <p>Don't pitch. Don't present. Open with a perspective that reframes the buyer's reality. When you lead with insight, you control the conversation — and position yourself as a peer, not a vendor.</p>
+          <div class="clear-insight">"The seller who teaches earns more trust in five minutes than the one who pitches earns in five meetings."</div>
+        </div>
+        <div class="clear-panel-right">
+          <div class="clear-steps-list">
+            <div class="clear-step-item"><div class="clear-step-num">01</div><div class="clear-step-text"><h4>Open with a provocation, not a pleasantry</h4><p>Start with a finding that challenges their current thinking</p></div></div>
+            <div class="clear-step-item"><div class="clear-step-num">02</div><div class="clear-step-text"><h4>Tell a story their peers lived</h4><p>Social proof through narrative — not case study slides</p></div></div>
+            <div class="clear-step-item"><div class="clear-step-num">03</div><div class="clear-step-text"><h4>Ask the question that opens the wound</h4><p>A single question that surfaces the gap you already know is there</p></div></div>
+            <div class="clear-step-item"><div class="clear-step-num">04</div><div class="clear-step-text"><h4>Listen at 70%, talk at 30%</h4><p>Insight opens the door — their words build the case for change</p></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="panel-e" class="clear-panel">
+        <div class="clear-panel-left">
+          <div class="clear-panel-letter">E</div>
+          <h3>Earn the Room</h3>
+          <p>Credibility isn't announced — it's demonstrated. Earning the room means every interaction proves you understand their business, their pressures, and their goals at a level that makes the alternative unthinkable.</p>
+          <div class="clear-insight">"Buyers don't buy from the smartest person in the room. They buy from the one who makes them feel most understood."</div>
+        </div>
+        <div class="clear-panel-right">
+          <div class="clear-steps-list">
+            <div class="clear-step-item"><div class="clear-step-num">01</div><div class="clear-step-text"><h4>Mirror their language and priorities</h4><p>Use their words — not your product vocabulary</p></div></div>
+            <div class="clear-step-item"><div class="clear-step-num">02</div><div class="clear-step-text"><h4>Demonstrate vertical expertise</h4><p>Reference their industry dynamics before they bring it up</p></div></div>
+            <div class="clear-step-item"><div class="clear-step-num">03</div><div class="clear-step-text"><h4>Handle objections before they surface</h4><p>Pre-emptive honesty builds credibility faster than defense</p></div></div>
+            <div class="clear-step-item"><div class="clear-step-num">04</div><div class="clear-step-text"><h4>Leave something valuable every time</h4><p>Every touchpoint should make them smarter — not just informed</p></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="panel-a" class="clear-panel">
+        <div class="clear-panel-left">
+          <div class="clear-panel-letter">A</div>
+          <h3>Align &amp; Advance</h3>
+          <p>Co-creation beats persuasion every time. When the buyer feels like an architect of the solution — not a recipient of your pitch — advancement is natural, not forced.</p>
+          <div class="clear-insight">"The best close isn't a technique. It's a moment of shared understanding that makes the next step feel obvious."</div>
+        </div>
+        <div class="clear-panel-right">
+          <div class="clear-steps-list">
+            <div class="clear-step-item"><div class="clear-step-num">01</div><div class="clear-step-text"><h4>Confirm the gap and the cost of inaction</h4><p>Make the status quo more painful than the change</p></div></div>
+            <div class="clear-step-item"><div class="clear-step-num">02</div><div class="clear-step-text"><h4>Co-design the solution criteria</h4><p>Ask what a successful outcome looks like in their words</p></div></div>
+            <div class="clear-step-item"><div class="clear-step-num">03</div><div class="clear-step-text"><h4>Build the internal champion</h4><p>Equip them to sell your solution when you're not in the room</p></div></div>
+            <div class="clear-step-item"><div class="clear-step-num">04</div><div class="clear-step-text"><h4>Advance with a mutual action plan</h4><p>Named steps, named owners, named dates — shared accountability</p></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="panel-r" class="clear-panel">
+        <div class="clear-panel-left">
+          <div class="clear-panel-letter">R</div>
+          <h3>Retain &amp; Grow</h3>
+          <p>The close is not the finish line — it's the starting line. The highest-performing sellers build portfolios, not transactions. Every client is a case study, a referral, and a growth opportunity waiting to be activated.</p>
+          <div class="clear-insight">"The goal isn't a signed contract. The goal is a relationship so strong they never take another call from your competitor."</div>
+        </div>
+        <div class="clear-panel-right">
+          <div class="clear-steps-list">
+            <div class="clear-step-item"><div class="clear-step-num">01</div><div class="clear-step-text"><h4>Deliver on every promise made in the sale</h4><p>Credibility is built before the close — and confirmed after</p></div></div>
+            <div class="clear-step-item"><div class="clear-step-num">02</div><div class="clear-step-text"><h4>Execute a formal success review at 90 days</h4><p>Measure outcomes against the goals they shared in discovery</p></div></div>
+            <div class="clear-step-item"><div class="clear-step-num">03</div><div class="clear-step-text"><h4>Identify adjacent expansion opportunities</h4><p>The next deal lives inside the current relationship</p></div></div>
+            <div class="clear-step-item"><div class="clear-step-num">04</div><div class="clear-step-text"><h4>Convert success to reference and referral</h4><p>One happy client, properly leveraged, is worth ten cold calls</p></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats-section">
+    <div class="stats-inner">
+      <div class="stat-block reveal">
+        <div class="stat-big"><span class="count-up" data-target="20">0</span><span style="color:var(--gold)">+</span></div>
+        <div class="stat-desc">Years in Enterprise<br>Sales Leadership</div>
+      </div>
+      <div class="stat-block reveal reveal-delay-1">
+        <div class="stat-big"><span class="count-up" data-target="5">0</span></div>
+        <div class="stat-desc">Vertical Markets<br>CPG · QSR · FSI · Retail · AdTech</div>
+      </div>
+      <div class="stat-block reveal reveal-delay-2">
+        <div class="stat-big"><span class="count-up" data-target="5">0</span></div>
+        <div class="stat-desc">C.L.E.A.R. Framework<br>Stages Proven in the Field</div>
+      </div>
+      <div class="stat-block reveal reveal-delay-3">
+        <div class="stat-big">1<span style="color:var(--gold); font-size:32px;"> System</span></div>
+        <div class="stat-desc">Built From Real Deals<br>Not Classroom Theory</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about-section" id="about">
+    <div class="about-inner">
+      <div class="about-left">
+        <div class="section-eyebrow reveal">About Robert Woodard</div>
+        <h2 class="reveal reveal-delay-1">A Sales Leader Who's Been in Every Room</h2>
+        <p class="reveal reveal-delay-2">With 20+ years in senior enterprise sales leadership, Robert Woodard brings rare depth across identity resolution, first-party data strategy, and enterprise GTM execution — across the most competitive verticals in business.</p>
+        <p class="reveal reveal-delay-3">The C.L.E.A.R. Selling System™ wasn't built in a classroom. It was forged across hundreds of complex enterprise deals, in boardrooms, on calls, in moments where the wrong word costs a quarter's worth of pipeline.</p>
+        <div class="about-credentials reveal reveal-delay-4">
+          <div class="about-credential">20+ years enterprise sales leadership</div>
+          <div class="about-credential">Expert in identity resolution &amp; first-party data strategy</div>
+          <div class="about-credential">Keynote speaker, author, and sales coach</div>
+          <div class="about-credential">Founder, Consider This, LLC</div>
+        </div>
+        <a href="#contact" class="btn-gold reveal reveal-delay-5">Book a Discovery Meeting</a>
+      </div>
+      <div class="about-right reveal reveal-delay-2">
+        <div class="about-portrait">
+          <svg viewBox="0 0 400 480" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;">
+            <defs>
+              <linearGradient id="portraitBg" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#0E2540"/>
+                <stop offset="100%" style="stop-color:#071525"/>
+              </linearGradient>
+              <radialGradient id="pLight" cx="40%" cy="35%" r="55%">
+                <stop offset="0%" style="stop-color:#C9A84C;stop-opacity:0.15"/>
+                <stop offset="100%" style="stop-color:transparent;stop-opacity:0"/>
+              </radialGradient>
+              <linearGradient id="pGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#C9A84C"/>
+                <stop offset="100%" style="stop-color:#E8C97A"/>
+              </linearGradient>
+            </defs>
+            <rect width="400" height="480" fill="url(#portraitBg)"/>
+            <rect width="400" height="480" fill="url(#pLight)"/>
+            <!-- Suit -->
+            <rect x="60" y="300" width="280" height="200" fill="#071525"/>
+            <polygon points="200,320 140,300 130,480 200,400" fill="#0E2540"/>
+            <polygon points="200,320 260,300 270,480 200,400" fill="#0E2540"/>
+            <polygon points="200,315 175,305 175,400 200,420 225,400 225,305" fill="rgba(255,255,255,0.06)"/>
+            <polygon points="200,315 190,320 193,410 200,420 207,410 210,320" fill="#C9A84C" opacity="0.7"/>
+            <polygon points="140,330 155,325 158,340 143,342" fill="rgba(201,168,76,0.5)"/>
+            <!-- Neck -->
+            <rect x="178" y="260" width="44" height="50" rx="8" fill="#C8956C"/>
+            <!-- Head -->
+            <ellipse cx="200" cy="220" rx="75" ry="85" fill="#C8956C"/>
+            <!-- Hair -->
+            <ellipse cx="200" cy="148" rx="75" ry="42" fill="#2A1A0A"/>
+            <ellipse cx="140" cy="175" rx="22" ry="30" fill="#2A1A0A"/>
+            <ellipse cx="260" cy="175" rx="22" ry="30" fill="#2A1A0A"/>
+            <ellipse cx="135" cy="195" rx="12" ry="18" fill="#5A5A6A" opacity="0.7"/>
+            <ellipse cx="265" cy="195" rx="12" ry="18" fill="#5A5A6A" opacity="0.7"/>
+            <!-- Ears -->
+            <ellipse cx="126" cy="220" rx="12" ry="16" fill="#B87A5A"/>
+            <ellipse cx="274" cy="220" rx="12" ry="16" fill="#B87A5A"/>
+            <!-- Eyes -->
+            <ellipse cx="172" cy="212" rx="14" ry="10" fill="#1C2B3A"/>
+            <ellipse cx="228" cy="212" rx="14" ry="10" fill="#1C2B3A"/>
+            <circle cx="172" cy="213" r="7" fill="#3A2A1A"/>
+            <circle cx="228" cy="213" r="7" fill="#3A2A1A"/>
+            <circle cx="172" cy="213" r="4" fill="#0A0A0A"/>
+            <circle cx="228" cy="213" r="4" fill="#0A0A0A"/>
+            <circle cx="174" cy="211" r="1.5" fill="rgba(255,255,255,0.7)"/>
+            <circle cx="230" cy="211" r="1.5" fill="rgba(255,255,255,0.7)"/>
+            <!-- Eyebrows -->
+            <path d="M 158 198 Q 172 192 186 196" fill="none" stroke="#2A1A0A" stroke-width="3" stroke-linecap="round"/>
+            <path d="M 214 196 Q 228 192 242 198" fill="none" stroke="#2A1A0A" stroke-width="3" stroke-linecap="round"/>
+            <!-- Nose -->
+            <path d="M 200 218 L 192 240 Q 200 245 208 240 L 200 218" fill="rgba(0,0,0,0.12)"/>
+            <!-- Smile -->
+            <path d="M 178 258 Q 200 272 222 258" fill="none" stroke="#8B5E3C" stroke-width="3" stroke-linecap="round"/>
+            <!-- Gold line -->
+            <rect x="0" y="470" width="400" height="10" fill="url(#pGold)"/>
+            <text x="200" y="460" text-anchor="middle" fill="rgba(201,168,76,0.2)" font-size="10" font-family="system-ui" font-weight="700" letter-spacing="3">CONSIDER THIS, LLC</text>
+          </svg>
+        </div>
+        <div class="about-quote">
+          <p>"The best sellers don't close deals. They open futures."</p>
+          <cite>— Robert Woodard</cite>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="contact">
+    <div class="cta-inner">
+      <div class="section-eyebrow" style="justify-content:center; margin-bottom:24px;">Ready to Transform Your Team?</div>
+      <h2>Sell with<br><em>Clarity.</em></h2>
+      <p>Book a Discovery Meeting and find out how the C.L.E.A.R. Selling System™ can change the way your team competes — starting with your next deal.</p>
+      <div class="cta-buttons">
+        <a href="#" class="btn-gold">Book a Discovery Meeting</a>
+        <a href="#video" class="btn-outline">▶ Watch the Video First</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">Consider This<span>,&nbsp;LLC</span></div>
+      <div class="footer-copy">© 2025 Consider This, LLC · All rights reserved</div>
+      <div class="footer-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => revealObserver.observe(el));
+
+    // Count-up
+    const counters = document.querySelectorAll('.count-up');
+    const countObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const el = e.target;
+          const target = parseInt(el.dataset.target);
+          let current = 0;
+          const step = target / 40;
+          const timer = setInterval(() => {
+            current += step;
+            if (current >= target) { current = target; clearInterval(timer); }
+            el.textContent = Math.floor(current);
+          }, 35);
+          countObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+    counters.forEach(el => countObserver.observe(el));
+
+    // CLEAR tabs
+    function showPanel(id, btn) {
+      document.querySelectorAll('.clear-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.clear-tab').forEach(t => t.classList.remove('active'));
+      document.getElementById('panel-' + id).classList.add('active');
+      btn.classList.add('active');
+    }
+
+    // AI Demo
+    const aiResponses = {
+      objection: { user: "They said our price is too high compared to their current vendor.", bot: "Don't defend the price — reframe the comparison. Ask: <em>\"What's it costing you right now when a deal stalls because your team doesn't have the right tools in the moment?\"</em> Shift from price to cost of inaction." },
+      question: { user: "What should I ask next to advance the deal?", bot: "Try: <em>\"If we solve this in Q1, what does that mean for your team's number by Q3?\"</em> — this surfaces financial impact and creates urgency without pressure. They'll calculate it themselves." },
+      close: { user: "How do I advance to next steps without being pushy?", bot: "Use a mutual action plan: <em>\"Based on what we've covered, I'd suggest a 30-minute working session with your VP of Sales. Does next Tuesday or Wednesday work?\"</em> Named step, named owner, named date." },
+      insight: { user: "What do I need to know about this buyer?", bot: "Their CFO was just quoted in their earnings call about 'operational efficiency' — this is your angle. Frame your ROI in efficiency and time saved, not revenue lift. Budget is tied to headcount reduction." }
+    };
+
+    function handleChip(el, type) {
+      document.querySelectorAll('.ai-chip').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      const msgs = document.getElementById('chat-messages');
+      const typing = document.getElementById('typing-indicator');
+      const r = aiResponses[type];
+      const userMsg = document.createElement('div');
+      userMsg.className = 'ai-msg user';
+      userMsg.innerHTML = `<div class="ai-avatar user-av">REP</div><div class="ai-bubble user-msg">${r.user}</div>`;
+      msgs.appendChild(userMsg);
+      typing.style.display = 'flex';
+      msgs.appendChild(typing);
+      msgs.scrollTop = msgs.scrollHeight;
+      setTimeout(() => {
+        typing.style.display = 'none';
+        const botMsg = document.createElement('div');
+        botMsg.className = 'ai-msg';
+        botMsg.innerHTML = `<div class="ai-avatar bot">✦</div><div class="ai-bubble bot">${r.bot}</div>`;
+        msgs.appendChild(botMsg);
+        msgs.scrollTop = msgs.scrollHeight;
+      }, 1400);
+    }
+  </script>
+</body>
+</html>
